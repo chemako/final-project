@@ -29,16 +29,18 @@
 	  <h2>Villa Pisani Bonetti a Bagnolo di Lonigo</h2>
 	  <p>The Villa Pisani is a patrician villa designed by Andrea Palladio, located in Bagnolo, a hamlet in the comune of Lonigo in the Veneto region of Italy.</p>
 	  <p>The Pisani were a rich family of Venetian nobles who owned several Villas Pisani, two of them designed by Andrea Palladio. The villa at Bagnolo was built in the 1540s and represents Palladio's first villa designed for a patrician family of Venice: his earlier villa commissions were from provincial nobility in the Vicenza area. The villa at Bagnolo was at the centre of an agricultural estate, as were most of the villas commissioned from Palladio. It was designed with rusticated features to complement its rural setting; in contrast, the Villa Pisani at Montagnana in a semi-urban setting utilizes more refined motifs.</p>
-	  <img src="images/villa_pisani.jpg">
+	  <img src="images/villa_pisani.jpg" onclick="window.open('images/villa_pisani.jpg', 'Villa Pisani',
+	  'width=818,height=552,location=no,menubar=no,status=no,toolbar=no')">
 	  <p>The interior features a central T-shaped salone with barrel vaulting inspired by Roman baths; it is decorated with frescoes and lit through a big thermal window.</p>
 	  <p>Source: <a href="http://en.wikipedia.org/wiki/Villa_Pisani_%28Bagnolo%29">Wikipedia</a></p>
 	  <p class="grassetto">You can find a full description at Villa Pisani official site: <a href="http://www.villapisani.net/la_villa.php#villa_pisani">www.villapisani.net</a></p>
 	  
 	  <h2>Modelling in plasm.js</h2>
-	  <p>I based most of my work on the ground floor plan, starting from outer walls, continuing with the entrance/facade, then passing to the interior and finally to roofs.</p>
-	  <img src="images/ground_floor_plan.gif">
-	  <p>Thanks to the symmetry of the building I modeled half of it, then reflected it to obtain the whole villa.</p>
-	  <p>I consecutively report some fragment of javascript code, supported by photos and screenshots.</p>
+	  <p>I based most of my work on the ground floor plan, starting from outer walls, continuing with the entrance/facade, then passing to the interior and finally to the roofs.</p>
+	  <img src="images/ground_floor_plan.gif" onclick="window.open('images/ground_floor_plan.gif', 'Ground floor plan',
+	  'width=690,height=763,location=no,menubar=no,status=no,toolbar=no')">
+	  <p>Thanks to the symmetry of the building I modeled half of it, then I mirrored it to obtain the whole villa.</p>
+	  <p>Please find below a selection of javascript code, supported by photos and screenshots.</p>
 	  <h3>Steps</h3>
 	  <p><code>ROTATIONAL_SURFACE</code> proved useful in modelling front steps:
 	  <pre><code>...
@@ -53,7 +55,8 @@ var profiloScalini = NUBS(S0)(2)(nodiScalini)(puntiScalini);
 var mappaScalini = ROTATIONAL_SURFACE(profiloScalini);
 var scalini = COLOR(cPietra)(MAP(mappaScalini)(dominioScalini));
 ...</code></pre>
-	  <img src="images/front_steps.jpg">
+	  <img src="images/front_steps.jpg" onclick="window.open('images/front_steps.jpg', 'Front steps',
+	  'width=1219,height=679,location=no,menubar=no,status=no,toolbar=no')">
 	  </p>	  
 	  <p>Squared back step required <code>SIMPLEX_GRID</code> and a <code>NUBS</code> surface for their frame:
 	  <pre><code>...	  
@@ -85,7 +88,7 @@ var scalinate = STRUCT([scalini,COLOR(cIntonaco),T([2])([-(hS+1.4)]),STRUCT(scal
 	  </p>
 
 	  <h3>Outer walls</h3>
-	  <p>The main structure is a simple sequence of <code>SIMPLEX_GRID</code>, used to model straight and windowed walls. Some more effort was needed for thermal windows: I used two functions to define straight and circular shaped curves and combined them in <code>NUBS</code> surfaces.
+	  <p>The main structure is a simple sequence of <code>SIMPLEX_GRID</code>, used to model straight and windowed walls. More effort was needed for thermal windows: I used two functions to define straight and circular shaped curves and combined them in <code>NUBS</code> surfaces.
 	  	  <pre><code>...
 //quarto di cerchio di raggio r, traslato di ty, tz
 function semicerchio (r,ty,tz) { 
@@ -129,7 +132,8 @@ var nodiSemic2 = nodi(curveSemic2);
 var supSemic2 = NUBS(S1)(2)(nodiSemic2)(curveSemic2);
 var mappaSemic2 = MAP(supSemic2)(dominioSemic);
 ...</code></pre>
-	  <img src="images/thermal_window.jpg">
+	  <img src="images/thermal_window.jpg" onclick="window.open('images/thermal_window.jpg', 'Thermal window',
+	  'width=934,height=954,location=no,menubar=no,status=no,toolbar=no')">
 	  </p>
 	  
 	  <h3>Facade</h3>
@@ -166,11 +170,12 @@ var nodiMatG = nodi(curveMatG);
 var supMatG = NUBS(S1)(2)(nodiMatG)(curveMatG);
 var mattoneG = MAP(supMatG)(dominioMattoni);
 ...</code></pre>
-	  <img src="images/facade.jpg">
+	  <img src="images/facade.jpg" onclick="window.open('images/facade.jpg', 'Facade',
+	  'width=1038,height=1206,location=no,menubar=no,status=no,toolbar=no')">
 	  </p>
 	  
 	  <h3>Interior</h3>
-	  <p>I decided to model only the upper floors' interior and not the basement's. I build most of it (walls, stairs, ...) using <code>SIMPLEX_GRID</code> but the central salone barrel vault:
+	  <p>I decided to model only the upper floors' interior and not the basement's. I built most of it (walls, stairs, ...) using <code>SIMPLEX_GRID</code>,  with the exception of the central salone barrel vault:
 	  <pre><code>...
 //volta sala centrale
 var dominioVolta = DOMAIN([[0,1],[0,1]])([20,20]);
@@ -221,11 +226,12 @@ var mappaVolta5 = MAP(volta5)(dominioCilindri2);
 
 var volta = STRUCT([COLOR(cIntonaco),voltaCentrale,T([1,2])([6.4,4.5])(R([1,2])([PI/2])(mappaVolta3)),T([1,2])([15.9,4.5])(R([1,2])([PI/2])(mappaVolta4)),T([0,1,2])([3.6,8.8,4.5])(R([0,2])([-PI/2])(mappaVolta5))]);
 ...</code></pre>
-	  <img src="images/salone_vault.jpg">
+	  <img src="images/salone_vault.jpg" onclick="window.open('images/salone_vault.jpg', 'Salone vault',
+	  'width=1020,height=618,location=no,menubar=no,status=no,toolbar=no')">
 	  </p>
 	  
 	  <h3>Roofs</h3>
-	  <p>To model roof surfaces I just used straight lines and points in <code>NUBS</code>, whereas for friezes between roofs and walls I chose the same technique used for capitals: define corner profiles by points and than join them in <code>NUBS</code>.
+	  <p>To model roof surfaces I just used straight lines and points in <code>NUBS</code>, whereas for friezes between roofs and walls I chose the same technique used for capitals: define corner profiles by points and then join them in <code>NUBS</code>.
 	  <pre><code>...
 var hF = 2.2;
 var fregio12 = [[0,0.3,5+hF],[0,0.2,5+hF],[0,0.2,5+hF],[0,0.1,5.2+hF],[0,0.1,5.2+hF],[0,-0.2,5.2+hF],[0,-0.2,5.2+hF],[0,-0.2,5.4+hF],[0,-0.2,5.4+hF],[0,-0.4,5.6+hF],[0,-0.4,5.6+hF],[0,0.3,5.6+hF]];
@@ -260,7 +266,8 @@ var nodiTetto10 = nodi(curveTetto10);
 var supTetto10 = NUBS(S1)(2)(nodiTetto10)(curveTetto10);
 var mappaTetto10 = MAP(supTetto10)(dominioTetto);
 ...</code></pre>
-	  <img src="images/roofs.jpg">
+	  <img src="images/roofs.jpg" onclick="window.open('images/roofs.jpg', 'Roofs',
+	  'width=1123,height=582,location=no,menubar=no,status=no,toolbar=no')">
 	  </p>
 	  
 	  <p class="grassetto">View the complete javascript code: <a href="model.js">model.js</a></p>
